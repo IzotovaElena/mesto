@@ -1,11 +1,11 @@
 .profile__info {  
   margin: 0;
   padding: 0;
-  margin-right: 244px;  
+  margin-right: 244px;
   display: grid;
   grid-template-columns: minmax(min-content, 294px) min-content;
   grid-column-gap: 16px;
-  grid-row-gap: 18px;  
+  grid-row-gap: 18px;
 }
 
 @media screen and (max-width: 767px) {
