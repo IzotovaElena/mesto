@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="pages/index.css">
+  <title>Mesto</title>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <img src="./images/logo.svg" alt="Логотип" class="header__logo">      
+    </header>
+
+  <main class="content">
+    <section class="profile">
+      <img src="./images/avatar.png" alt="Фото автора" class="profile__avatar">
+      <div class="profile__info">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <button class="profile__edit-button"></button>
+        <p class="profile__bio">Исследователь океана</p>
+      </div>
+      <button class="profile__add-button"></button>
+    </section>
+
+    <section class="elements">
+      <ul class="elements__list">
+        <li class="element">
+          <img src="./images/karachaevsk.png" alt="Карачаевск" class="element__image">
+          <div class="element__about">
+            <h2 class="element__title">Карачаевск</h2>
+            <button class="element__like"></button>
+          </div>          
+        </li>
+        <li class="element">
+          <img src="./images/elbrus.png" alt="Эльбрус" class="element__image">
+          <div class="element__about">
+            <h2 class="element__title">Гора Эльбрус</h2>
+            <button class="element__like"></button>
+          </div>          
+        </li>
+        <li class="element">
+          <img src="./images/dombay.png" alt="Домбай" class="element__image">
+          <div class="element__about">
+            <h2 class="element__title">Домбай</h2>
+            <button class="element__like"></button>
+          </div>          
+        </li>
+        <li class="element">
+          <img src="./images/tokyo-disneyland.png" alt="Токио Дисней Си" class="element__image">
+          <div class="element__about">
+            <h2 class="element__title">Токио Дисней Си</h2>
+            <button class="element__like"></button>
+          </div>          
+        </li>
+        <li class="element">
+          <img src="./images/angkor-wat.png" alt="Ангкор-Ват" class="element__image">
+          <div class="element__about">
+            <h2 class="element__title">Ангкор-Ват</h2>
+            <button class="element__like"></button>
+          </div>          
+        </li>
+        <li class="element">
+          <img src="./images/swedagon.png" alt="Пагода Шведагон" class="element__image">
+          <div class="element__about">
+            <h2 class="element__title">Пагода Шведагон</h2>
+            <button class="element__like"></button>
+          </div>          
+        </li>
+      </ul>      
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
+  </footer>
+
+  <section class="popup">    
+    <div class="popup__container">      
+      <form class="popup__form">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input type="text" class="popup__input popup__input-name" name="profileName" value="Жак-Ив Кусто">
+        <input type="text" class="popup__input popup__input-job" name="profileJob" value="Исследователь океана">
+        <button class="popup__submit" type="submit">Сохранить</button>
+      </form>    
+      <button class="popup__close"></button>  
+    </div>
+  </section>
+  </div> 
+  
+  <script src="scripts/index.js"></script>
+</body>
+</html>

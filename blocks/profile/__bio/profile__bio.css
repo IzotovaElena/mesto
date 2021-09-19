@@ -1,0 +1,22 @@
+.profile__bio {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.22;
+  margin: 0;
+  padding: 0;
+  grid-column: 1;
+  grid-row: 2;
+  max-width: 305px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__bio {   
+    max-width: 235px;
+    font-size: 14px;
+    line-height: 1.22;    
+  }  
+}
