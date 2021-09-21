@@ -14,8 +14,7 @@
     grid-column-gap: 10px;
     grid-row-gap: 14px;
     text-align: end;
-    padding: 0;
-    margin: 0;
+    margin: 0; /*если удалить это свойство, элементы разъезжаются*/
     margin-bottom: 36px;
   }  
 }

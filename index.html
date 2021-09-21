@@ -18,10 +18,10 @@
       <img src="./images/avatar.png" alt="Фото автора" class="profile__avatar">
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <button class="profile__edit-button"></button>
+        <button class="profile__edit-button" type="button"></button>
         <p class="profile__bio">Исследователь океана</p>
       </div>
-      <button class="profile__add-button"></button>
+      <button class="profile__add-button" type="button"></button>
     </section>
 
     <section class="elements">
@@ -30,42 +30,42 @@
           <img src="./images/karachaevsk.png" alt="Карачаевск" class="element__image">
           <div class="element__about">
             <h2 class="element__title">Карачаевск</h2>
-            <button class="element__like"></button>
+            <button class="element__like" type="button"></button>
           </div>          
         </li>
         <li class="element">
           <img src="./images/elbrus.png" alt="Эльбрус" class="element__image">
           <div class="element__about">
             <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__like"></button>
+            <button class="element__like" type="button"></button>
           </div>          
         </li>
         <li class="element">
           <img src="./images/dombay.png" alt="Домбай" class="element__image">
           <div class="element__about">
             <h2 class="element__title">Домбай</h2>
-            <button class="element__like"></button>
+            <button class="element__like" type="button"></button>
           </div>          
         </li>
         <li class="element">
           <img src="./images/tokyo-disneyland.png" alt="Токио Дисней Си" class="element__image">
           <div class="element__about">
             <h2 class="element__title">Токио Дисней Си</h2>
-            <button class="element__like"></button>
+            <button class="element__like" type="button"></button>
           </div>          
         </li>
         <li class="element">
           <img src="./images/angkor-wat.png" alt="Ангкор-Ват" class="element__image">
           <div class="element__about">
             <h2 class="element__title">Ангкор-Ват</h2>
-            <button class="element__like"></button>
+            <button class="element__like" type="button"></button>
           </div>          
         </li>
         <li class="element">
           <img src="./images/swedagon.png" alt="Пагода Шведагон" class="element__image">
           <div class="element__about">
             <h2 class="element__title">Пагода Шведагон</h2>
-            <button class="element__like"></button>
+            <button class="element__like" type="button"></button>
           </div>          
         </li>
       </ul>      
@@ -76,17 +76,17 @@
     <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
   </footer>
 
-  <section class="popup">    
+  <article class="popup">    
     <div class="popup__container">      
-      <form class="popup__form">
+      <form class="popup__form" name="editProfile">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__input popup__input-name" name="profileName" value="Жак-Ив Кусто">
-        <input type="text" class="popup__input popup__input-job" name="profileJob" value="Исследователь океана">
+        <input type="text" class="popup__input popup__input_type_name" name="profileName" value="" placeholder="Жак-Ив Кусто">
+        <input type="text" class="popup__input popup__input_type_job" name="profileJob" value="" placeholder="Исследователь океана">
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>    
-      <button class="popup__close"></button>  
+      <button class="popup__close" type="button"></button>  
     </div>
-  </section>
+  </article>
   </div> 
   
   <script src="scripts/index.js"></script>
