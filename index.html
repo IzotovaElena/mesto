@@ -25,49 +25,7 @@
     </section>
 
     <section class="elements">
-      <ul class="elements__list">
-        <li class="element">
-          <img src="./images/karachaevsk.png" alt="Карачаевск" class="element__image">
-          <div class="element__about">
-            <h2 class="element__title">Карачаевск</h2>
-            <button class="element__like" type="button"></button>
-          </div>          
-        </li>
-        <li class="element">
-          <img src="./images/elbrus.png" alt="Эльбрус" class="element__image">
-          <div class="element__about">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>          
-        </li>
-        <li class="element">
-          <img src="./images/dombay.png" alt="Домбай" class="element__image">
-          <div class="element__about">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>          
-        </li>
-        <li class="element">
-          <img src="./images/tokyo-disneyland.png" alt="Токио Дисней Си" class="element__image">
-          <div class="element__about">
-            <h2 class="element__title">Токио Дисней Си</h2>
-            <button class="element__like" type="button"></button>
-          </div>          
-        </li>
-        <li class="element">
-          <img src="./images/angkor-wat.png" alt="Ангкор-Ват" class="element__image">
-          <div class="element__about">
-            <h2 class="element__title">Ангкор-Ват</h2>
-            <button class="element__like" type="button"></button>
-          </div>          
-        </li>
-        <li class="element">
-          <img src="./images/swedagon.png" alt="Пагода Шведагон" class="element__image">
-          <div class="element__about">
-            <h2 class="element__title">Пагода Шведагон</h2>
-            <button class="element__like" type="button"></button>
-          </div>          
-        </li>
+      <ul class="elements__list">                      
       </ul>      
     </section>
   </main>
@@ -76,19 +34,50 @@
     <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
   </footer>
 
-  <article class="popup">    
+  <article class="popup popup_profile">    
     <div class="popup__container">      
-      <form class="popup__form" name="editProfile">
+      <form class="popup__form popup__form_profile" name="editProfile">
         <h2 class="popup__title">Редактировать профиль</h2>
         <input type="text" class="popup__input popup__input_type_name" name="profileName" value="" placeholder="Жак-Ив Кусто">
         <input type="text" class="popup__input popup__input_type_job" name="profileJob" value="" placeholder="Исследователь океана">
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>    
-      <button class="popup__close" type="button"></button>  
+      <button class="popup__close popup__close_profile" type="button"></button>  
+    </div>
+  </article>
+
+  <article class="popup popup_element">    
+    <div class="popup__container">      
+      <form class="popup__form popup__form_card" name="addCard">
+        <h2 class="popup__title">Новое место</h2>
+        <input type="text" class="popup__input popup__input_type_title" name="profileName" value="" placeholder="Название">
+        <input type="text" class="popup__input popup__input_type_link" name="profileJob" value="" placeholder="Ссылка на картинку">
+        <button class="popup__submit" type="submit">Сохранить</button>
+      </form>    
+      <button class="popup__close popup__close_card" type="button"></button>  
+    </div>
+  </article>
+
+  <article class="popup popup_photo">
+    <div class="popup__photo-container">
+      <img src="#" alt="Фото" class="popup__photo">
+      <p class="popup__photo-title"></p>
+      <button class="popup__close" type="button"></button> 
     </div>
   </article>
   </div> 
   
+<template class="card-template">
+  <li class="element">          
+      <img src="#" alt="Фото" class="element__image">
+      <div class="element__about">
+        <h2 class="element__title">Название</h2>
+        <button class="element__like" type="button"></button>             
+      </div>
+      <button class="element__delete" type="button"></button>                 
+    </li>   
+</template>
+
   <script src="scripts/index.js"></script>
 </body>
 </html>
