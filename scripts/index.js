@@ -28,8 +28,8 @@ const formProfile = document.querySelector(".popup__form_profile");
 function formSubmitHandler (evt) {
   evt.preventDefault() 
 
-  let nameValue = nameInput.value
-  let jobValue = jobInput.value // Получите значение полей из свойства value
+  const nameValue = nameInput.value
+  const jobValue = jobInput.value // Получите значение полей из свойства value
   // Выберите элементы, куда должны быть вставлены значения полей
   profileName.textContent = nameValue
   profileJob.textContent = jobValue// Вставьте новые значения с помощью textContent
@@ -49,6 +49,7 @@ const titleInput = document.querySelector(".popup__input_type_title");
 const imageInput = document.querySelector(".popup__input_type_link");
 const popupPhoto = document.querySelector(".popup_photo");
 const photoClose = popupPhoto.querySelector(".popup__close"); 
+const cardDeleteButtons = document.querySelectorAll(".element__delete");
 
 // (1) Добавление элементов из имеющегося массива
 const initialCards = [
@@ -114,17 +115,12 @@ function likeToggle(evt) {
 
 
 // (5) Удаление карточки
-const cardDeleteButtons = document.querySelectorAll(".element__delete");
-cardDeleteButtons.forEach(function (button) {
-  button.addEventListener("click", deleteCard);
-});
 function deleteCard(evt) {
   const elementDelete = evt.target.closest(".element");
   elementDelete.remove();
 }
 
 //(3) создание новой карточки
-
 const formCard = document.querySelector(".popup__form_card");
 const cardTitle = document.querySelector(".element__title");
 const cardLink = document.querySelector(".element__image");
@@ -148,7 +144,6 @@ formCard.addEventListener("submit", cardSubmitHandler);
 
 
 //(6) попап с картинкой
-
 const photoFull = document.querySelector(".popup__photo");
 const photoFullTitle = document.querySelector(".popup__photo-title");
 
