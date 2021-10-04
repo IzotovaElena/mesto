@@ -3,14 +3,17 @@
 const popupEditProfile = document.querySelector(".popup_profile");
 const popupProfileOpenBtn = document.querySelector('.profile__edit-button')
 const popupProfileCloseBtn = popupEditProfile.querySelector(".popup__close_profile");
+const profileName = document.querySelector('.profile__name');
+const profileJob = document.querySelector(".profile__bio");
+const nameInput = document.querySelector(".popup__input_type_name");
+const jobInput = document.querySelector(".popup__input_type_job");
 
-let profileName = document.querySelector('.profile__name');
-let profileJob = document.querySelector('.profile__bio');
-let nameInput = document.querySelector(".popup__input_type_name");
-let jobInput = document.querySelector(".popup__input_type_job");
+function togglePopup(popup) {
+  popup.classList.toggle("popup_opened");
+}
 
 function profileToggle() { 
-  popupEditProfile.classList.toggle("popup_opened");
+  togglePopup(popupEditProfile);
   if (popupEditProfile.classList.contains('popup_opened')) {   
 
     nameInput.value = profileName.textContent;
@@ -20,10 +23,10 @@ function profileToggle() {
 popupProfileOpenBtn.addEventListener("click", profileToggle);
 popupProfileCloseBtn.addEventListener("click", profileToggle);
 
-let formProfile = document.querySelector(".popup__form_profile");
+const formProfile = document.querySelector(".popup__form_profile");
 
 function formSubmitHandler (evt) {
-    evt.preventDefault() 
+  evt.preventDefault() 
 
   let nameValue = nameInput.value
   let jobValue = jobInput.value // Получите значение полей из свойства value
@@ -37,15 +40,15 @@ function formSubmitHandler (evt) {
 formProfile.addEventListener('submit', formSubmitHandler)
 
 
-
 //popup name="addCard"
 
 const popupAddCard = document.querySelector(".popup_element");
 const popupCardOpenBtn = document.querySelector(".profile__add-button");
 const popupCardCloseBtn = popupAddCard.querySelector(".popup__close_card");
-
-let titleInput = document.querySelector(".popup__input_type_title");
-let imageInput = document.querySelector(".popup__input_type_link");
+const titleInput = document.querySelector(".popup__input_type_title");
+const imageInput = document.querySelector(".popup__input_type_link");
+const popupPhoto = document.querySelector(".popup_photo");
+const photoClose = popupPhoto.querySelector(".popup__close"); 
 
 // (1) Добавление элементов из имеющегося массива
 const initialCards = [
@@ -74,41 +77,39 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
-
 const cardListElement = document.querySelector(".elements__list");
 const cardTemplateElement = document.querySelector(".card-template");
 
-function renderElements(item) {
+function createCard(item) {
   const newCard = cardTemplateElement.content.cloneNode(true);
-  
   newCard.querySelector(".element__title").textContent = item.name;
   newCard.querySelector(".element__image").src = item.link;
+  newCard.querySelector(".element__image").alt = item.name;
   newCard.querySelector(".element__like").addEventListener("click", likeToggle);
   newCard.querySelector(".element__delete").addEventListener("click", deleteCard);
   newCard.querySelector(".element__image").addEventListener("click", openPhoto);
+  return newCard;
+}
 
-  cardListElement.prepend(newCard);
+function renderElements(item) {
+  
+  const newCard = createCard(item);
+  cardListElement.prepend(newCard); 
 }
 
 initialCards.map(renderElements);
 
-
 // (2) Открытие формы создания карточки
-
 function cardToggle() {
-  popupAddCard.classList.toggle("popup_opened"); 
+  togglePopup(popupAddCard);  
 }
 
 popupCardOpenBtn.addEventListener("click", cardToggle);
 popupCardCloseBtn.addEventListener("click", cardToggle);
 
 //(4) Лайк
-const likes = document.querySelectorAll(".element__like"); 
-likes.forEach(function (like) {
-  like.addEventListener("click", likeToggle);
-});
-function likeToggle() {
-  this.classList.toggle("element__like_active"); 
+function likeToggle(evt) {
+  evt.target.classList.toggle("element__like_active"); 
 }
 
 
@@ -117,16 +118,16 @@ const cardDeleteButtons = document.querySelectorAll(".element__delete");
 cardDeleteButtons.forEach(function (button) {
   button.addEventListener("click", deleteCard);
 });
-function deleteCard() {
-  const elementDelete = this.closest(".element");
+function deleteCard(evt) {
+  const elementDelete = evt.target.closest(".element");
   elementDelete.remove();
 }
 
 //(3) создание новой карточки
 
-let formCard = document.querySelector(".popup__form_card");
-let cardTitle = document.querySelector(".element__title");
-let cardLink = document.querySelector(".element__image");
+const formCard = document.querySelector(".popup__form_card");
+const cardTitle = document.querySelector(".element__title");
+const cardLink = document.querySelector(".element__image");
 
 function cardSubmitHandler(event) {
   event.preventDefault(); 
@@ -148,30 +149,23 @@ formCard.addEventListener("submit", cardSubmitHandler);
 
 //(6) попап с картинкой
 
-const popupPhoto = document.querySelector(".popup_photo");  
-const photos = document.querySelectorAll(".element__image"); 
-const photoClose = popupPhoto.querySelector(".popup__close"); 
-
-photos.forEach(function (photo) {
-  photo.addEventListener("click", openPhoto);
-});
-
- 
- let photoFull = document.querySelector(".popup__photo");
- let photoFullTitle = document.querySelector(".popup__photo-title");
+const photoFull = document.querySelector(".popup__photo");
+const photoFullTitle = document.querySelector(".popup__photo-title");
 
 function openPhoto(event) {
-  link = event.target.currentSrc;
-  title = event.currentTarget.nextElementSibling.innerText;
+  const link = event.target.currentSrc;
+  const title = event.currentTarget.nextElementSibling.innerText;
+  const alt = event.currentTarget.nextElementSibling.innerText;
   
   photoFull.src = link; 
   photoFullTitle.innerText = title;
+  photoFullTitle.innerText = alt;
   
-  popupPhoto.classList.toggle("popup_opened");  
+  togglePopup(popupPhoto);  
 }
 
 function closePhoto() {
-  popupPhoto.classList.toggle("popup_opened");
+  togglePopup(popupPhoto);
 }
 
 photoClose.addEventListener("click", closePhoto);
