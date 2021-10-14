@@ -1,6 +1,6 @@
 //popup name="editProfile"
 
-const popupEditProfile = document.querySelector(".popup_profile");
+const popupEditProfile = document.querySelector(".popup_profile"); //попап редактирования профиля
 const popupProfileOpenBtn = document.querySelector('.profile__edit-button')
 const popupProfileCloseBtn = popupEditProfile.querySelector(".popup__close_profile");
 const profileName = document.querySelector('.profile__name');
@@ -42,7 +42,7 @@ formProfile.addEventListener('submit', formSubmitHandler)
 
 //popup name="addCard"
 
-const popupAddCard = document.querySelector(".popup_element");
+const popupAddCard = document.querySelector(".popup_element");//попап добавления карточки
 const popupCardOpenBtn = document.querySelector(".profile__add-button");
 const popupCardCloseBtn = popupAddCard.querySelector(".popup__close_card");
 const titleInput = document.querySelector(".popup__input_type_title");
@@ -164,3 +164,32 @@ function closePhoto() {
 }
 
 photoClose.addEventListener("click", closePhoto);
+
+const popupClose = () => {
+  popupEditProfile.classList.remove("popup_opened");
+  popupAddCard.classList.remove("popup_opened");
+  popupPhoto.classList.remove("popup_opened");
+}
+
+//esc
+const popupEscHandler = () => {
+  document.addEventListener('keydown', (evt) => {
+    if (evt.keyCode === 27) {
+      popupClose();
+    };
+  });
+}
+
+popupEscHandler();
+
+
+//overlay
+const popupOverlayHandler = () => {
+  document.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup')) {
+      popupClose();
+    };
+  });
+}
+
+popupOverlayHandler();
