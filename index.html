@@ -44,6 +44,7 @@
         minlength="2"
         maxlength="40" 
         class="popup__input popup__input_type_name" 
+        id="profileName"
         name="profileName" 
         placeholder="Жак-Ив Кусто"
         novalidate
@@ -54,7 +55,8 @@
         type="text" 
         minlength="2"
         maxlength="200"
-        class="popup__input popup__input_type_job" 
+        class="popup__input popup__input_type_job"
+        id="profileJob"
         name="profileJob" 
         placeholder="Исследователь океана"
         novalidate
@@ -75,7 +77,8 @@
         type="text" 
         minlength="2"
         maxlength="30"
-        class="popup__input popup__input_type_title" 
+        class="popup__input popup__input_type_title"
+        id="cardTitle" 
         name="cardTitle" 
         placeholder="Название"
         novalidate
@@ -85,6 +88,7 @@
         required
         type="url" 
         class="popup__input popup__input_type_link" 
+        id="cardUrl"
         name="cardUrl" 
         placeholder="Ссылка на картинку"
         novalidate
@@ -116,7 +120,7 @@
     </li>   
 </template>
 
-  <script src="scripts/index.js"></script>
-  <script src="scripts/validate.js"></script>
+<script src="scripts/validate.js"></script>
+<script src="scripts/index.js"></script>  
 </body>
 </html>
