@@ -55,7 +55,9 @@ const toggleButtonState = (button, isActive, config) => {
 const setEventListeners = (formElement, config) => {
   const inputsList = formElement.querySelectorAll(config.inputSelector); //все инпуты формы
   const submitButton = formElement.querySelector(config.submitButtonSelector); //метод менющий состояние кнопки
-   //3)
+  const isFormValid = formElement.checkValidity();
+  toggleButtonState(submitButton, isFormValid, config);
+  //3)
   Array.from(inputsList).forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       const isFormValid = formElement.checkValidity(); //Проверяет значение элемента на соответствие его ограничениям
