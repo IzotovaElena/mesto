@@ -1,18 +1,22 @@
-
 //popup name="editProfile"
 
 const popupEditProfile = document.querySelector(".popup_profile"); //попап редактирования профиля
 const popupProfileOpenBtn = document.querySelector(".profile__edit-button");
-const popupProfileCloseBtn = popupEditProfile.querySelector(
-  ".popup__close_profile"
-);
+const popupProfileCloseBtn = popupEditProfile.querySelector(".popup__close_profile");
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__bio");
 const nameInput = document.querySelector(".popup__input_type_name");
 const jobInput = document.querySelector(".popup__input_type_job");
 
 function togglePopup(popup) {
-  popup.classList.toggle("popup_opened");  
+  popup.classList.toggle("popup_opened");
+  if (popup.classList.contains("popup_opened")) {
+    document.addEventListener("keydown", popupEscHandler);
+    document.addEventListener("click", popupOverlayHandler);
+  } else {
+    document.removeEventListener("keydown", popupEscHandler);
+    document.removeEventListener("click", popupOverlayHandler);
+  }
 }
 
 function profileToggle() {
@@ -27,7 +31,7 @@ popupProfileCloseBtn.addEventListener("click", profileToggle);
 
 const formProfile = document.querySelector(".popup__form_profile");
 
-function formSubmitHandler(evt) {
+function handleSubmitForm(evt) {
   evt.preventDefault();
 
   const nameValue = nameInput.value;
@@ -39,7 +43,7 @@ function formSubmitHandler(evt) {
 }
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-formProfile.addEventListener("submit", formSubmitHandler);
+formProfile.addEventListener("submit", handleSubmitForm);
 
 //popup name="addCard"
 
@@ -88,10 +92,8 @@ function createCard(item) {
   newCard.querySelector(".element__image").src = item.link;
   newCard.querySelector(".element__image").alt = item.name;
   newCard.querySelector(".element__like").addEventListener("click", likeToggle);
-  newCard
-    .querySelector(".element__delete")
-    .addEventListener("click", deleteCard);
-  newCard.querySelector(".element__image").addEventListener("click", openPhoto);
+  newCard.querySelector(".element__delete").addEventListener("click", deleteCard);
+  newCard.querySelector(".element__image").addEventListener("click", () =>  openPhoto(item.link, item.name));  
   return newCard;
 }
 
@@ -126,15 +128,16 @@ const formCard = document.querySelector(".popup__form_card");
 const cardTitle = document.querySelector(".element__title");
 const cardLink = document.querySelector(".element__image");
 
-function cardSubmitHandler(event) {
+function handleSubmitCard(event) {
   event.preventDefault();
 
-  const cardTitleValue = event.currentTarget.querySelector(
-    ".popup__input_type_title"
-  ).value;
-  const cardImageValue = event.currentTarget.querySelector(
-    ".popup__input_type_link"
-  ).value;
+//поиск инпутов выполняется в функции потому, что для добавления карточки нужны значения инпутов, 
+//вводимые пользователем в конкретный момент выполнения функции
+  const cardTitleValue = event.currentTarget.querySelector(".popup__input_type_title").value;
+  const cardImageValue = event.currentTarget.querySelector(".popup__input_type_link").value;
+//если все-таки есть способ получить значения инпутов, поиск которых выполняется вне функции, 
+//просьба показать на примере, как это можно реализовать (имею ввиду получение в теле функции значений инпутов, 
+//поиск которых выполняется вне функции, вводимых в конкретный момент выполнения функции)
 
   renderElements({
     name: cardTitleValue,
@@ -145,23 +148,18 @@ function cardSubmitHandler(event) {
   cardToggle();
 }
 
-formCard.addEventListener("submit", cardSubmitHandler);
+formCard.addEventListener("submit", handleSubmitCard);
 
 //(6) попап с картинкой
 const photoFull = document.querySelector(".popup__photo");
 const photoFullTitle = document.querySelector(".popup__photo-title");
 
-function openPhoto(event) {
-  const link = event.target.currentSrc;
-  const title = event.currentTarget.nextElementSibling.innerText;
-  const alt = event.currentTarget.nextElementSibling.innerText;
-
+const openPhoto = (link, name) => {
+  photoFullTitle.textContent = name;
+  photoFull.alt = name;
   photoFull.src = link;
-  photoFullTitle.innerText = title;
-  photoFullTitle.innerText = alt;
-
   togglePopup(popupPhoto);
-}
+}; 
 
 function closePhoto() {
   togglePopup(popupPhoto);
@@ -176,21 +174,17 @@ const popupClose = () => {
 };
 
 //esc
-const popupEscHandler = () => {
-  document.addEventListener("keydown", (evt) => {
-    if (evt.keyCode === 27) {
-      popupClose();
-    }
-  });
+const popupEscHandler = (evt) => {
+  if (evt.key === 'Escape') {
+    popupClose(evt.target.classList.contains("popup_opened"));
+  }  
 };
-popupEscHandler();
 
 //overlay
-const popupOverlayHandler = () => {
-  document.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains("popup")) {
-      popupClose();
-    }
-  });
+const popupOverlayHandler = (evt) => {  
+  if (evt.target.classList.contains("popup")) {
+    popupClose(evt.target.classList.contains("popup_opened"));
+  }  
 };
-popupOverlayHandler();
+
+

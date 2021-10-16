@@ -25,7 +25,7 @@ const enableValidation = (config) => {
   Array.from(forms).forEach((formElement) => {
     //перебор форм с приводом к массиву
     setEventListeners(formElement, validationConfig); //отмена отправки формы
-  });
+  });  
 };
 
 //4)
@@ -51,6 +51,7 @@ const toggleButtonState = (button, isActive, config) => {
   }
 };
 
+
 //2) установка обработчиков
 const setEventListeners = (formElement, config) => {
   const inputsList = formElement.querySelectorAll(config.inputSelector); //все инпуты формы
@@ -62,12 +63,8 @@ const setEventListeners = (formElement, config) => {
     inputElement.addEventListener("input", () => {
       const isFormValid = formElement.checkValidity(); //Проверяет значение элемента на соответствие его ограничениям
       checkInputValidity(formElement, inputElement, config);
-      toggleButtonState(submitButton, isFormValid, config);
+      toggleButtonState(submitButton, isFormValid, config);      
     });
-  });
-
-  formElement.addEventListener("submit", (evt) => {
-    evt.preventDefault();
   });
 };
 
