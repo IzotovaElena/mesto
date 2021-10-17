@@ -1,33 +1,45 @@
 //popup name="editProfile"
 
-const popupEditProfile = document.querySelector(".popup_profile"); //попап редактирования профиля
+const popupEditProfile = document.querySelector(".popup_profile"); 
 const popupProfileOpenBtn = document.querySelector(".profile__edit-button");
-const popupProfileCloseBtn = popupEditProfile.querySelector(".popup__close_profile");
+const popups = Array.from(document.querySelectorAll(".popup"))
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__bio");
 const nameInput = document.querySelector(".popup__input_type_name");
 const jobInput = document.querySelector(".popup__input_type_job");
 
-function togglePopup(popup) {
-  popup.classList.toggle("popup_opened");
-  if (popup.classList.contains("popup_opened")) {
-    document.addEventListener("keydown", popupEscHandler);
-    document.addEventListener("click", popupOverlayHandler);
-  } else {
-    document.removeEventListener("keydown", popupEscHandler);
-    document.removeEventListener("click", popupOverlayHandler);
-  }
+function openPopup(popup) {
+  popup.classList.add("popup_opened");
+  document.addEventListener("keydown", popupEscHandler); 
+  document.addEventListener("click", popupOverlayHandler); 
 }
 
-function profileToggle() {
-  togglePopup(popupEditProfile);
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", popupEscHandler); 
+  document.removeEventListener("click", popupOverlayHandler); 
+}
+
+function openProfilePopup() {
+  openPopup(popupEditProfile);
   if (popupEditProfile.classList.contains("popup_opened")) {
     nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-  }
+    jobInput.value = profileJob.textContent;    
+  }  
 }
-popupProfileOpenBtn.addEventListener("click", profileToggle);
-popupProfileCloseBtn.addEventListener("click", profileToggle);
+
+popupProfileOpenBtn.addEventListener("click", openProfilePopup);
+
+popups.forEach((popup) => { 
+  popup.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(popup)
+    }
+    if (evt.target.classList.contains("popup__close")) {
+      closePopup(popup);
+    }
+  })
+})
 
 const formProfile = document.querySelector(".popup__form_profile");
 
@@ -35,19 +47,18 @@ function handleSubmitForm(evt) {
   evt.preventDefault();
 
   const nameValue = nameInput.value;
-  const jobValue = jobInput.value; // Получите значение полей из свойства value
-  // Выберите элементы, куда должны быть вставлены значения полей
+  const jobValue = jobInput.value; 
   profileName.textContent = nameValue;
-  profileJob.textContent = jobValue; // Вставьте новые значения с помощью textContent
-  profileToggle();
+  profileJob.textContent = jobValue; 
+  closePopup(popupEditProfile); 
 }
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
+
 formProfile.addEventListener("submit", handleSubmitForm);
+
 
 //popup name="addCard"
 
-const popupAddCard = document.querySelector(".popup_element"); //попап добавления карточки
+const popupAddCard = document.querySelector(".popup_element"); 
 const popupCardOpenBtn = document.querySelector(".profile__add-button");
 const popupCardCloseBtn = popupAddCard.querySelector(".popup__close_card");
 const titleInput = document.querySelector(".popup__input_type_title");
@@ -105,12 +116,11 @@ function renderElements(item) {
 initialCards.map(renderElements);
 
 // (2) Открытие формы создания карточки
-function cardToggle() {
-  togglePopup(popupAddCard);
+function openCardPopup () {
+  openPopup(popupAddCard);
 }
 
-popupCardOpenBtn.addEventListener("click", cardToggle);
-popupCardCloseBtn.addEventListener("click", cardToggle);
+popupCardOpenBtn.addEventListener("click", openCardPopup);
 
 //(4) Лайк
 function likeToggle(evt) {
@@ -128,16 +138,14 @@ const formCard = document.querySelector(".popup__form_card");
 const cardTitle = document.querySelector(".element__title");
 const cardLink = document.querySelector(".element__image");
 
+const cardTitleValue = document.querySelector(".popup__input_type_title");
+const cardImageValue = document.querySelector(".popup__input_type_link");
+
 function handleSubmitCard(event) {
   event.preventDefault();
-
-//поиск инпутов выполняется в функции потому, что для добавления карточки нужны значения инпутов, 
-//вводимые пользователем в конкретный момент выполнения функции
-  const cardTitleValue = event.currentTarget.querySelector(".popup__input_type_title").value;
-  const cardImageValue = event.currentTarget.querySelector(".popup__input_type_link").value;
-//если все-таки есть способ получить значения инпутов, поиск которых выполняется вне функции, 
-//просьба показать на примере, как это можно реализовать (имею ввиду получение в теле функции значений инпутов, 
-//поиск которых выполняется вне функции, вводимых в конкретный момент выполнения функции)
+  
+const cardTitleValue = titleInput.value;
+const cardImageValue = imageInput.value; 
 
   renderElements({
     name: cardTitleValue,
@@ -145,7 +153,7 @@ function handleSubmitCard(event) {
   });
 
   event.currentTarget.reset();
-  cardToggle();
+  closePopup(popupAddCard);
 }
 
 formCard.addEventListener("submit", handleSubmitCard);
@@ -158,33 +166,26 @@ const openPhoto = (link, name) => {
   photoFullTitle.textContent = name;
   photoFull.alt = name;
   photoFull.src = link;
-  togglePopup(popupPhoto);
+  openPopup(popupPhoto);
 }; 
 
 function closePhoto() {
-  togglePopup(popupPhoto);
+  closePopup(popupPhoto);
 }
 
 photoClose.addEventListener("click", closePhoto);
 
-const popupClose = () => {
-  popupEditProfile.classList.remove("popup_opened");
-  popupAddCard.classList.remove("popup_opened");
-  popupPhoto.classList.remove("popup_opened");
-};
-
 //esc
 const popupEscHandler = (evt) => {
   if (evt.key === 'Escape') {
-    popupClose(evt.target.classList.contains("popup_opened"));
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);    
   }  
 };
 
 //overlay
 const popupOverlayHandler = (evt) => {  
   if (evt.target.classList.contains("popup")) {
-    popupClose(evt.target.classList.contains("popup_opened"));
+    closePopup(evt.target);
   }  
 };
-
-
