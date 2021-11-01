@@ -1,37 +1,11 @@
 import { openPhoto } from './index.js';
 
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
-class Card {
-  constructor(data, templateSelector) {
+export default class Card {
+  constructor(data, templateSelector, openPhoto) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._openPhoto = openPhoto;
   }
 
   _getTemplate() {
@@ -50,7 +24,7 @@ class Card {
     this._deleteBtn = this._template.querySelector('.element__delete');
     this._cardName.textContent = this._name;
     this._cardPhoto.src = this._link;
-    this._cardPhoto.alt = this._name;
+    this._cardPhoto.alt = this._name;    
     this._setEventListeners();
     return this._template;
   }
@@ -79,4 +53,4 @@ class Card {
   }
 }
 
-export { Card, initialCards };
+//export { Card, initialCards };

@@ -1,5 +1,5 @@
-import { Card, initialCards } from "./Card.js";
-import { FormValidator, validationConfig } from './FormValidator.js';
+import Card from "./Card.js";
+import FormValidator from './FormValidator.js';
 
 
 //popup name="editProfile"
@@ -35,10 +35,7 @@ function openProfilePopup() {
 popupProfileOpenBtn.addEventListener("click", openProfilePopup);
 
 popups.forEach((popup) => { 
-  popup.addEventListener("mousedown", (evt) => {
-    if (evt.target.classList.contains("popup_opened")) {
-      closePopup(popup)
-    }
+  popup.addEventListener("mousedown", (evt) => {    
     if (evt.target.classList.contains("popup__close")) {
       closePopup(popup);
     }
@@ -47,19 +44,45 @@ popups.forEach((popup) => {
 
 const formProfile = document.querySelector(".popup__form_profile");
 
-function handleSubmitForm(evt) {
+function submitProfileForm(evt) {
   evt.preventDefault();
 
   const nameValue = nameInput.value;
-  const jobValue = jobInput.value; 
+  const jobValue = jobInput.value;
   profileName.textContent = nameValue;
   profileJob.textContent = jobValue;
   disableSubmitButton(popupEditProfile);
-  closePopup(popupEditProfile); 
+  closePopup(popupEditProfile);
 }
 
-formProfile.addEventListener("submit", handleSubmitForm);
+formProfile.addEventListener("submit", submitProfileForm);
 
+const initialCards = [
+  {
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+  },
+  {
+    name: "Челябинская область",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+  },
+  {
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+  },
+  {
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+  },
+  {
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+  },
+  {
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+  },
+];
 
 //-----------------------popup name="addCard"---------------------------------------------
 
@@ -107,10 +130,6 @@ function handleSubmitCard(event) {
 formCard.addEventListener("submit", handleSubmitCard);
 
 
-//-----------------------popup name="addCard"---------------------------------------------
-
-
-
 //(6) попап с картинкой
 const photoFull = document.querySelector(".popup__photo");
 const photoFullTitle = document.querySelector(".popup__photo-title");
@@ -150,6 +169,14 @@ function disableSubmitButton(formElement) {
 }
 
 ///validation
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__submit",
+  inactiveButtonClass: "popup__submit_invalid",
+  inputErrorClass: "popup__input_state_invalid",
+};
+
 const editFormValidation = new FormValidator(validationConfig, formProfile);
 editFormValidation.enableValidation();
 const addFormValidation = new FormValidator(validationConfig, formCard);
