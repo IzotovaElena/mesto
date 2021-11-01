@@ -1,6 +1,32 @@
 import Card from "./Card.js";
 import FormValidator from './FormValidator.js';
 
+const initialCards = [
+  {
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+  },
+  {
+    name: "Челябинская область",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+  },
+  {
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+  },
+  {
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+  },
+  {
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+  },
+  {
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+  },
+];
 
 //popup name="editProfile"
 
@@ -57,32 +83,16 @@ function submitProfileForm(evt) {
 
 formProfile.addEventListener("submit", submitProfileForm);
 
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
+//(6) попап с картинкой
+const photoFull = document.querySelector(".popup__photo");
+const photoFullTitle = document.querySelector(".popup__photo-title");
+
+const openPhoto = (link, name) => {
+  photoFullTitle.textContent = name;
+  photoFull.alt = name;
+  photoFull.src = link;
+  openPopup(popupPhoto);
+}; 
 
 //-----------------------popup name="addCard"---------------------------------------------
 
@@ -110,7 +120,7 @@ function renderElements(renderedCard) {
 initialCards.map(renderElements); 
 
 function createCard(renderedCard) {
-  const card = new Card(renderedCard, '.card-template');
+  const card = new Card(renderedCard, ".card-template", openPhoto);
   const createdCardElement = card.generateCard();
   return createdCardElement;
 }
@@ -129,22 +139,9 @@ function handleSubmitCard(event) {
 
 formCard.addEventListener("submit", handleSubmitCard);
 
-
-//(6) попап с картинкой
-const photoFull = document.querySelector(".popup__photo");
-const photoFullTitle = document.querySelector(".popup__photo-title");
-
-const openPhoto = (link, name) => {
-  photoFullTitle.textContent = name;
-  photoFull.alt = name;
-  photoFull.src = link;
-  openPopup(popupPhoto);
-}; 
-
 function closePhoto() {
   closePopup(popupPhoto);
 }
-
 photoClose.addEventListener("click", closePhoto);
 
 //esc
@@ -162,7 +159,7 @@ const popupOverlayHandler = (evt) => {
   }  
 };
 
-function disableSubmitButton(formElement) {
+function disableSubmitButton(formElement) { //постараюсь разобраться с предложенным вами улучшением как будет немного больше свободного времени!)
   const buttonElement = formElement.querySelector(".popup__submit");
   buttonElement.disabled = true;
   buttonElement.classList.add("popup__submit_invalid");
@@ -183,4 +180,3 @@ const addFormValidation = new FormValidator(validationConfig, formCard);
 addFormValidation.enableValidation();
 
 
-export { openPhoto };

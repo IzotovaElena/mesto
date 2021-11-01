@@ -1,5 +1,3 @@
-import { openPhoto } from './index.js';
-
 export default class Card {
   constructor(data, templateSelector, openPhoto) {
     this._name = data.name;
@@ -48,9 +46,8 @@ export default class Card {
     });
 
     this._cardPhoto.addEventListener('click', () => {
-      openPhoto(this._link, this._name);
+      this._openPhoto(this._link, this._name);
     })
   }
 }
 
-//export { Card, initialCards };
