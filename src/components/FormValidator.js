@@ -56,14 +56,13 @@ export default class FormValidator {
         this._checkInputValidity(inputElement);
         this._toggleButtonState(isFormValid);
       });
-    });    
+    });
   };
 
   enableValidation() {
     this._formElement.addEventListener('submit', function (evt) {
-      evt.preventDefault();
+      evt.preventDefault();      
     });
     this._setEventListeners();
   }
 }
-
