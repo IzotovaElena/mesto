@@ -1,13 +1,10 @@
-//npm run dev запуск перед изменениями
-//NPM RUn build подготовливает сайт к продакшену(размещению на сервере) 
-
-import "./pages/index.css"
-import Card from "./components/Card.js"
-import FormValidator from "./components/FormValidator.js"
-import Section from "./components/Section.js"
-import PopupWithImage from "./components/PopupWithImage.js"
-import PopupWithForm from "./components/PopupWithForm.js"
-import UserInfo from "./components/UserInfo.js"
+import "./index.css"
+import Card from "../components/Card.js"
+import FormValidator from "../components/FormValidator.js"
+import Section from "../components/Section.js"
+import PopupWithImage from "../components/PopupWithImage.js"
+import PopupWithForm from "../components/PopupWithForm.js"
+import UserInfo from "../components/UserInfo.js"
 import {
   validationConfig,
   initialCards,
@@ -25,7 +22,7 @@ import {
   imageInput,
   formProfile,
   formCard,
-} from "./utils/constants.js";
+} from "../utils/constants.js";
 
 const editFormValidation = new FormValidator(validationConfig, formProfile);
 editFormValidation.enableValidation();
@@ -33,14 +30,15 @@ const addFormValidation = new FormValidator(validationConfig, formCard);
 addFormValidation.enableValidation();
 
 const profileInfo = new UserInfo({ //попап с информацией
-  userNameSelector: profileName,
-  userInfoSelector: profileJob
+  userName: profileName,
+  userInfo: profileJob
 })
 
 const openProfilePopup = () => { //попап редактирование профиля
+  editFormValidation.toggleButtonState(false);
   const data = profileInfo.getUserInfo();
-  nameInput.value = data.userName;
-  jobInput.value = data.userInfo;
+  nameInput.value = data.userNameValue;
+  jobInput.value = data.userInfoValue;
   
   popupUserForm.open()
 }  
@@ -50,8 +48,6 @@ const popupUserForm = new PopupWithForm({
   popupSelector: popupEditProfile,
   submitProfileForm: () => {
     profileInfo.setUserInfo(nameInput, jobInput);    
-    profileName.textContent = nameInput.value;
-    profileJob.textContent = jobInput.value;
     popupUserForm.close();
   },
 });
@@ -59,8 +55,9 @@ const popupUserForm = new PopupWithForm({
 popupUserForm.setEventListeners()
 
 //--------------------------------------------------------------------
-function openCardPopup() {  
-  handleSubmitCard.open();
+function openCardPopup() {
+  addFormValidation.toggleButtonState(false);
+  popupNewCardForm.open();
 }
 popupCardOpenBtn.addEventListener("click", openCardPopup);
 
@@ -84,20 +81,20 @@ const cardsList = new Section(//Карточки из массива
   }, cardListElement)
 cardsList.renderItems()
 //------------------------------------------------------------
-const handleSubmitCard = new PopupWithForm ({
+const popupNewCardForm = new PopupWithForm({
   popupSelector: popupAddCard,
   submitProfileForm: () => {
-  const item = {
-    name: titleInput.value,
-    link: imageInput.value,
-  };
-  const newCard = createCard(item)  
-  cardsList.addItem(newCard)
-  handleSubmitCard.close();
-  }
-})
+    const item = {
+      name: titleInput.value,
+      link: imageInput.value,
+    };
+    const newCard = createCard(item);
+    cardsList.addNewItem(newCard);
+    popupNewCardForm.close();
+  },
+});
 
-handleSubmitCard.setEventListeners()
+popupNewCardForm.setEventListeners();
 //---------------------------------------------------------------------
 const openPhoto = new PopupWithImage(photoFull) //попап с картинкой PopupWithImage
 openPhoto.setEventListeners()

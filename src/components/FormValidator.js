@@ -36,7 +36,7 @@ export default class FormValidator {
     }
   };
 
-  _toggleButtonState = (isActive) => {
+  toggleButtonState = (isActive) => {
     if (isActive) {
       this._submitButton.classList.remove(this._inactiveButtonClass);
       this._submitButton.disabled = false;
@@ -48,13 +48,13 @@ export default class FormValidator {
 
   _setEventListeners = () => {
     const isFormValid = this._formElement.checkValidity();
-    this._toggleButtonState(isFormValid);
+    this.toggleButtonState(isFormValid);
 
     Array.from(this._inputsList).forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         const isFormValid = this._formElement.checkValidity();
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(isFormValid);
+        this.toggleButtonState(isFormValid);
       });
     });
   };
