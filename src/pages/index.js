@@ -45,7 +45,7 @@ const openProfilePopup = () => { //попап редактирование пр�
 
 popupProfileOpenBtn.addEventListener("click", openProfilePopup);
 const popupUserForm = new PopupWithForm({
-  popupSelector: popupEditProfile,
+  popup: popupEditProfile,
   submitProfileForm: () => {
     profileInfo.setUserInfo(nameInput, jobInput);    
     popupUserForm.close();
@@ -82,7 +82,7 @@ const cardsList = new Section(//Карточки из массива
 cardsList.renderItems()
 //------------------------------------------------------------
 const popupNewCardForm = new PopupWithForm({
-  popupSelector: popupAddCard,
+  popup: popupAddCard,
   submitProfileForm: () => {
     const item = {
       name: titleInput.value,
